@@ -9,6 +9,10 @@ public class Menu : MonoBehaviour
     public List<Transform> tools;
     public List<Transform> targets;
 
+    public List<Transform> mangas;
+    public List<Transform> mangasTargets;
+    public List<Transform> mangasSources;
+
     private void OnEnable()
     {
         EventHandler.gameStartEvent += OnGameStart;
@@ -32,22 +36,53 @@ public class Menu : MonoBehaviour
 
     private IEnumerator SelectTools()
     {
-        StartCoroutine(Move());
+        
 
-        yield return new WaitForSeconds(4.0f);
+        yield return StartCoroutine(Move());
         EventHandler.CallMangaBeginEvent();
+
+        
+        yield return StartCoroutine(MangaMove());
+
+        GameController.Instance.GameStart();
+    }
+
+    private IEnumerator MangaMove()
+    {
+        float timer = 0;
+        while (timer < 2.5f)
+        {
+            timer += Time.deltaTime;
+            for (int i = 0; i < 2; i++)
+            {
+                MoveToWards(mangas[i].position, mangasTargets[i].position, mangas[i]);
+            }
+            yield return null;
+        }
 
         transitionalPanel.SetActive(false);
         gamePanel.SetActive(true);
-        GameController.Instance.GameStart();
+
+        timer = 0;
+        while (timer < 2.5f)
+        {
+            timer += Time.deltaTime;
+            for (int i = 0; i < 2; i++)
+            {
+                MoveToWards(mangas[i].position, mangasSources[i].position, mangas[i]);
+            }
+            yield return null;
+        }
     }
 
     private IEnumerator Move()
     {
         Shuffle(targets);
 
-        while(true)
+        float timer = 0;
+        while (timer < 4.0f)
         {
+            timer += Time.deltaTime;
             for(int i = 0; i < 6; i++)
             {
                 MoveToWards(tools[i].position, targets[i].position, tools[i]);
@@ -76,7 +111,7 @@ public class Menu : MonoBehaviour
 
     private void MoveToWards(Vector3 from, Vector3 to, Transform tool)
     {
-        Vector3 velocity = (to - from);
+        Vector3 velocity = (to - from) + (to - from).normalized * 200;
         tool.position = from + velocity * Time.deltaTime;
     }
 }

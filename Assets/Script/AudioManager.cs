@@ -67,6 +67,16 @@ public class AudioManager : MonoBehaviour
     private void OnManga()
     {
         //audioMixer.SetFloat("BGMVolume", ConvertSoundVolume(musicSound.volume + musicOffset));
+        StartCoroutine(SoundFade());
+    }
+
+    private IEnumerator SoundFade()
+    {
+        for(float i = 10; i > 0; i--)
+        {
+            audioMixer.SetFloat("BGMVolume", ConvertSoundVolume(i/10));
+            yield return new WaitForSeconds(0.1f);
+        }
         musicSound.Stop();
     }
 
@@ -127,7 +137,7 @@ public class AudioManager : MonoBehaviour
         }
         else if(action == 2)
         {
-            propSound.clip = actEffets[1];
+            propSound.clip = actEffets[Random.Range(1,7)];
             propSound.Play();
         }
         timer = 0;

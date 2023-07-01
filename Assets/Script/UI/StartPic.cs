@@ -11,11 +11,18 @@ public class StartPic : MonoBehaviour
     public void ClickStartButton()
     {
         //EventHandler.CallGameStart();
-        startPanel.SetActive(false);
+
         //mangaPanel.SetActive(true);
         //EventHandler.CallMangaBeginEvent();
 
-        SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Additive);
+        StartCoroutine(LoadScene());
+
+    }
+
+    private IEnumerator LoadScene()
+    {
+        yield return SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Additive);
+        startPanel.SetActive(false);
         EventHandler.CallGameStart();
     }
 }

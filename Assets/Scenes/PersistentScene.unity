@@ -1292,7 +1292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1184755592
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1689,7 +1689,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1390408561
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2250,7 +2250,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e97863c7b8265554394508b6414c057a, type: 3}
   actEffets:
   - {fileID: 8300000, guid: 2ee2236c063b9bf41958ebd934ff181d, type: 3}
-  - {fileID: 8300000, guid: 5d41448ab63066244aa673a4eab6255a, type: 3}
+  - {fileID: 8300000, guid: 0b469799200fe3a49b48c3b4e92b3d17, type: 3}
+  - {fileID: 8300000, guid: 652b1a8d3ce63404aa7964754499036e, type: 3}
+  - {fileID: 8300000, guid: 6e26e50fec8bc814ab4d817f3c1cbfaa, type: 3}
+  - {fileID: 8300000, guid: 7b338a80c6171e247b1c45d47a7e3581, type: 3}
+  - {fileID: 8300000, guid: c0c271c70a9f6af4a8c9bb3426b86f50, type: 3}
+  - {fileID: 8300000, guid: 0b8885397c8335647a056b8a0fc672ff, type: 3}
   footEffets:
   - {fileID: 8300000, guid: 7d4f49205905f1147a460b067b7f079c, type: 3}
   Music:
