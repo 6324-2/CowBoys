@@ -26,6 +26,7 @@ public class GameController : Singleton<GameController>
     public float reactTimer;
     public float sinceShoot;
     public int[] scores = new int[4];
+    public Dictionary<int, List<int>> toolDic = new Dictionary<int, List<int>> { {0, new List<int>() }, { 1, new List<int>() } };
 
     private Player[] players = new Player[2];
     public TMP_Text timeString;
@@ -195,7 +196,7 @@ public class GameController : Singleton<GameController>
 
     private void OnPlayerInput(int playerID, int action)
     {
-        EventHandler.CallActEvent(action);
+        EventHandler.CallActEvent(action, playerID);
 
         effects[playerID].gameObject.SetActive(true);
         effects[playerID].sprite = effectSources[Random.Range(0, 5)];

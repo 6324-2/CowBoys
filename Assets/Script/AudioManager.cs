@@ -120,7 +120,7 @@ public class AudioManager : MonoBehaviour
         yield return new WaitForSeconds(time);
     }
 
-    public void OnAct(int action)
+    public void OnAct(int action, int playerID)
     {
         if((propSound.isPlaying || gunSound.isPlaying) && timer < waitTime)
         {
@@ -137,7 +137,9 @@ public class AudioManager : MonoBehaviour
         }
         else if(action == 2)
         {
-            propSound.clip = actEffets[Random.Range(1,7)];
+            List<int> temps = GameController.Instance.toolDic[playerID];
+            propSound.clip = actEffets[temps[0] + 1];
+            temps.Remove(0);
             propSound.Play();
         }
         timer = 0;

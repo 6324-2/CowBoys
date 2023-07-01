@@ -106,6 +106,19 @@ public class Menu : MonoBehaviour
                 original[index] = temp;
             }
         }
+
+        for(int i = 0; i < original.Count; i++)
+        {
+            if(original[i].position.x < 0)
+            {
+                GameController.Instance.toolDic[0].Add(i);
+            }
+            else
+            {
+                GameController.Instance.toolDic[1].Add(i);
+            }
+        }
+
         return original;
     }
 

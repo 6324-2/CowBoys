@@ -23,10 +23,10 @@ public class EventHandler
         startActingTimeEvent.Invoke();
     }
 
-    public static event Action<int> actEvent;
-    public static void CallActEvent(int action)
+    public static event Action<int, int> actEvent;
+    public static void CallActEvent(int action, int playerID)
     {
-        actEvent.Invoke(action);
+        actEvent.Invoke(action, playerID);
     }
 
     public static event Action gameStartEvent;
