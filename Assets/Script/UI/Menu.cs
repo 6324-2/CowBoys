@@ -6,6 +6,22 @@ public class Menu : MonoBehaviour
 {
     public GameObject menuPanel;
 
+    private void OnEnable()
+    {
+        EventHandler.gameStartEvent += OnGameStart;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.gameStartEvent -= OnGameStart;
+    }
+
+    private void OnGameStart()
+    {
+        menuPanel.SetActive(true);
+        Debug.Log("11111");
+    }
+
     public void StartGame()
     {
         menuPanel.SetActive(false);

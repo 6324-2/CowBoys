@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.replicastudios.link": {
-      "version": "file:C:/Users/lz144/Documents/replica-unity-link-v0.0.1.tgz",
+      "version": "file:E:/QQFlie/replica-unity-link-v0.0.1.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}

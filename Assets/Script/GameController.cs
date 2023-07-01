@@ -81,6 +81,8 @@ public class GameController : Singleton<GameController>
 
     private IEnumerator Waiting(float time)
     {
+        EventHandler.CallStartWaitingTime();
+
         isInput = false;
 
         players[0].inputDisable = true;
@@ -97,6 +99,8 @@ public class GameController : Singleton<GameController>
 
     private IEnumerator Acting(float time)
     {
+        EventHandler.CallStartActingTime();
+
         currentStep++;
         timer = 0;
         actions.Clear();
@@ -130,6 +134,8 @@ public class GameController : Singleton<GameController>
 
     private void OnPlayerInput(int playerID, int action)
     {
+        EventHandler.CallActEvent(action);
+
         Debug.Log(playerID + " " + action);
         actions.Add((playerID, action));
         reactTimer = 0;

@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public bool inputDisable;
 
     public TMP_Text scoreString;
+    public GameObject endPanel;
 
     private void Start()
     {
@@ -67,12 +68,15 @@ public class Player : MonoBehaviour
         scoreString.text = this.score.ToString();
         if (gameCount > 0)
         {
+            inputDisable = true;
             GameController.Instance.Reload();
             SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Additive);
         }
         else
         {
+            inputDisable = true;
             SceneManager.UnloadSceneAsync("SampleScene");
+            endPanel.SetActive(true);
         }
     }
 }

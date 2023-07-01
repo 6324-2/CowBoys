@@ -19,6 +19,25 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &-7664278009551120697
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GunEffect
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 0647dbc29ecc25740b674fa217f0c936
+  m_Children: []
+  m_Volume: a83e24272528e544fa4b897983bef972
+  m_Pitch: c655ee57c2d9f954386dc8099f1353ae
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 5219224995690036393}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &-7631325974045444029
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -80,6 +99,20 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-987856864232296005
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: c964a77d8e423ed4b93b68a445df481e
+  m_EffectName: Attenuation
+  m_MixLevel: 68346a784069c6f4497ede9c08208a05
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -96,14 +129,18 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: cdd631f4e0503ef4d9098b8b57eedf81
+    name: BGMVolume
   - guid: e5d80630f967a6c4292a33d4251c9612
     name: BGVolume
-  - guid: 98fada7c70bb8644cb947c1a9b1fd0c1
-    name: BreathVolume
   - guid: 7014c6214bdbf754ba073ea32fca7250
     name: FootVolume
+  - guid: a83e24272528e544fa4b897983bef972
+    name: GunVolume
   - guid: 17a2e46fee8195e41a1be4afffa6978d
     name: MasterVolume
+  - guid: 98fada7c70bb8644cb947c1a9b1fd0c1
+    name: OtherVolume
   - guid: 3d60a43802c057842bb2b3e52cf4cbc6
     name: ToolVolume
   m_AudioMixerGroupViews:
@@ -113,6 +150,8 @@ AudioMixerController:
     - f0dc54b0fa1db6842959b8f64bb5853e
     - 22d6ad45b454026428e284f85238c364
     - e381be4640bd87645837356ce582a7f8
+    - d9f3e09b0a4f9e6478883c10cabe22db
+    - 0647dbc29ecc25740b674fa217f0c936
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -130,6 +169,8 @@ AudioMixerGroupController:
   - {fileID: -8344145659298412664}
   - {fileID: 6066472798189853739}
   - {fileID: 5578491004839007124}
+  - {fileID: 1741609321210104879}
+  - {fileID: -7664278009551120697}
   m_Volume: 17a2e46fee8195e41a1be4afffa6978d
   m_Pitch: 8eb0395f95e2b0d4d8d163be613e9759
   m_Send: 00000000000000000000000000000000
@@ -165,6 +206,39 @@ AudioMixerSnapshotController:
   m_FloatValues:
     e5d80630f967a6c4292a33d4251c9612: 0
   m_TransitionOverrides: {}
+--- !u!243 &1741609321210104879
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BGM
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: d9f3e09b0a4f9e6478883c10cabe22db
+  m_Children: []
+  m_Volume: cdd631f4e0503ef4d9098b8b57eedf81
+  m_Pitch: b5845883de24d9f48bf1e21027167827
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -987856864232296005}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &5219224995690036393
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: c95370ee0f80e4c43a2ce445023abfff
+  m_EffectName: Attenuation
+  m_MixLevel: 07794ee52f765fb468d2320d913b1fc5
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &5255049920746979042
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -185,7 +259,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Breath Effects
+  m_Name: Other Effects
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: e381be4640bd87645837356ce582a7f8
   m_Children: []
