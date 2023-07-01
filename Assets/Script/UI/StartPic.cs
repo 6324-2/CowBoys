@@ -5,13 +5,14 @@ using UnityEngine;
 public class StartPic : MonoBehaviour
 {
     public GameObject startPanel;
+    public GameObject mangaPanel;
 
-    private void Update()
+    public void ClickStartButton()
     {
-        if(Input.GetMouseButtonUp(0))
-        {
-            EventHandler.CallGameStart();
-            startPanel.SetActive(false);
-        }
+        //EventHandler.CallGameStart();
+        Debug.Log("adsfsafasdf");
+        startPanel.SetActive(false);
+        mangaPanel.SetActive(true);
+        EventHandler.CallMangaBeginEvent();
     }
 }

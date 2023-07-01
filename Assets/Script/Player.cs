@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -13,12 +14,26 @@ public class Player : MonoBehaviour
     public int score;
     public bool inputDisable;
 
-    public TMP_Text scoreString;
-    public GameObject endPanel;
+    //public TMP_Text scoreString;
+    //public GameObject endPanel;
+
+    private void OnEnable()
+    {
+        if (GameObject.FindGameObjectWithTag("player0")== null)
+        {
+            this.gameObject.tag = "player0";
+            this.playrID = 0;
+        }
+        else if (GameObject.FindGameObjectWithTag("player1") == null)
+        {
+            this.playrID = 1;
+            this.gameObject.tag = "player1";
+        }
+    }
 
     private void Start()
     {
-        scoreString.text = score.ToString();
+        //scoreString.text = score.ToString();
     }
 
     private void Update()
@@ -30,7 +45,7 @@ public class Player : MonoBehaviour
                 action = 1;
                 EventHandler.CallPlayerInputEvent(playrID, action);
             }
-            else if (Input.GetKeyDown(KeyCode.K) && propCount > 0)
+            else if (Input.GetKeyDown(KeyCode.K) && propCount > 0 && GameController.Instance.currentStep < 7)
             {
                 action = 2;
                 EventHandler.CallPlayerInputEvent(playrID, action);
@@ -44,7 +59,7 @@ public class Player : MonoBehaviour
                 action = 1;
                 EventHandler.CallPlayerInputEvent(playrID, action);
             }
-            else if (Input.GetMouseButtonDown(1) && propCount > 0)
+            else if (Input.GetMouseButtonDown(1) && propCount > 0 && GameController.Instance.currentStep < 7)
             {
                 action = 2;
                 EventHandler.CallPlayerInputEvent(playrID, action);
@@ -57,7 +72,7 @@ public class Player : MonoBehaviour
     {
         this.score += score;
         gameCount--;
-        scoreString.text = this.score.ToString();
+        //scoreString.text = this.score.ToString();
     }
 
     public void Dead(int score)
@@ -65,7 +80,7 @@ public class Player : MonoBehaviour
         Debug.Log("Player" + playrID + " is dead");
         this.score += score;
         gameCount--;
-        scoreString.text = this.score.ToString();
+        //scoreString.text = this.score.ToString();
         if (gameCount > 0)
         {
             inputDisable = true;
@@ -76,7 +91,8 @@ public class Player : MonoBehaviour
         {
             inputDisable = true;
             SceneManager.UnloadSceneAsync("SampleScene");
-            endPanel.SetActive(true);
+            //endPanel.SetActive(true);
+            EventHandler.CallGameEndEvent();
         }
     }
 }

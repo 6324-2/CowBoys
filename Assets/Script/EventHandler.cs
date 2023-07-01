@@ -34,4 +34,22 @@ public class EventHandler
     {
         gameStartEvent.Invoke();
     }
+
+    public static event Action mangaBeginEvent;
+    public static void CallMangaBeginEvent()
+    {
+        mangaBeginEvent.Invoke();
+    }
+
+    public static event Action playerJoinedEvent;
+    public static void CallPlayerJoined()
+    {
+        playerJoinedEvent.Invoke();
+    }
+
+    public static event Action gameEndEvent;
+    public static void CallGameEndEvent()
+    {
+        gameEndEvent.Invoke();
+    }
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
-    public GameObject menuPanel;
+    public GameObject transitionalPanel;
+    public GameObject gamePanel;
 
     private void OnEnable()
     {
@@ -18,14 +19,15 @@ public class Menu : MonoBehaviour
 
     private void OnGameStart()
     {
-        menuPanel.SetActive(true);
+        transitionalPanel.SetActive(true);
         Debug.Log("11111");
     }
 
     public void StartGame()
     {
-        menuPanel.SetActive(false);
+        transitionalPanel.SetActive(false);
         StartCoroutine(Loading());
+        gamePanel.SetActive(true);
         GameController.Instance.GameStart();
     }
 

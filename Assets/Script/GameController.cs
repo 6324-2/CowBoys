@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameController : Singleton<GameController>
 {
@@ -11,10 +12,11 @@ public class GameController : Singleton<GameController>
     private List<(int, int)> actions = new List<(int, int)>();
     private bool isInput;
     private bool isShot;
-    [SerializeField]private bool isWaiting;
+    private bool isGaming;
+    //[SerializeField]private bool isWaiting;
     [SerializeField]private bool isActing;
 
-    public int currentStep = 1;   
+    public int currentStep = 0;   
     public float waitingTime;
     public float actTime;
     public float reactTime;
@@ -26,11 +28,17 @@ public class GameController : Singleton<GameController>
 
     private Player[] players = new Player[2];
     public TMP_Text timeString;
+    public GameObject focusPanel;
+    public Image progressBar;
+    public Image timingBar;
+    public Image Man1;
+    public Image Man2;
+    public Image tumbleweed;
 
     protected override void Awake()
     {
         base.Awake();
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
     }
 
     private void Start()
@@ -39,43 +47,63 @@ public class GameController : Singleton<GameController>
         players[1] = GameObject.FindGameObjectWithTag("player1").GetComponent<Player>();
         players[0].inputDisable = true;
         players[1].inputDisable = true;
-        isWaiting = true;
+        //isWaiting = true;
+    }
+
+    private void OnPlayerJoined()
+    {
+        players[0] = GameObject.FindGameObjectWithTag("player0").GetComponent<Player>();
+        players[1] = GameObject.FindGameObjectWithTag("player1").GetComponent<Player>();
+        players[0].inputDisable = true;
+        players[1].inputDisable = true;
     }
 
     private void OnEnable()
     {
         EventHandler.playerInputEvent += OnPlayerInput;
+        EventHandler.playerJoinedEvent += OnPlayerJoined;
     }
 
     private void OnDisable()
     {
         EventHandler.playerInputEvent -= OnPlayerInput;
+        EventHandler.playerJoinedEvent -= OnPlayerJoined;
     }
 
     private void Update()
     {
-        timer = timer + Time.deltaTime;
-        reactTimer = reactTimer + Time.deltaTime;
-        sinceShoot = sinceShoot + Time.deltaTime;
-
-        if (isShot && sinceShoot > reactTime)
+        if (isGaming)
         {
-            for(int i = actions.Count - 1; i >= 0; i--)
-            { 
-                if(actions[i].Item2 == 1)
-                {                    
-                    players[actions[i].Item1].Win(scores[1]);
-                    players[1 - actions[i].Item1].Dead(scores[3]);
+            timer = timer + Time.deltaTime;
+            reactTimer = reactTimer + Time.deltaTime;
+            sinceShoot = sinceShoot + Time.deltaTime;
 
-                    break;
+            if (isShot && sinceShoot > reactTime && currentStep < maxStep)
+            {
+                for (int i = actions.Count - 1; i >= 0; i--)
+                {
+                    if (actions[i].Item2 == 1)
+                    {
+                        players[actions[i].Item1].Win(scores[1]);
+                        players[1 - actions[i].Item1].Dead(scores[3]);
+                        isGaming = false;
+                        break;
+                    }
                 }
+            }
+            else if(isShot && sinceShoot > reactTime && currentStep >= maxStep)
+            {
+                players[actions[0].Item1].Win(scores[0]);
+                players[1 - actions[0].Item1].Dead(scores[2]);
+                isGaming = false;
             }
         }
     }
 
     public void GameStart()
     {
-        Time.timeScale = 1;
+        isGaming = true;
+        //Time.timeScale = 1;
         StartCoroutine(Waiting(waitingTime));
     }
 
@@ -122,14 +150,24 @@ public class GameController : Singleton<GameController>
             yield return new WaitForSeconds(0.1f);
         }
 
-        if (currentStep < maxStep)
+        if (currentStep < maxStep - 1)
             StartCoroutine(Waiting(waitingTime));
-        else
+        else if(currentStep == maxStep - 1)
         {
             StopCoroutine(Waiting(waitingTime));
             StopCoroutine(Acting(actTime));
-            //TODO
+
+            StartCoroutine(Focus());
         }
+    }
+
+    private IEnumerator Focus()
+    {
+        focusPanel.SetActive(true);
+
+        yield return new WaitForSeconds(2.0f);
+
+        StartCoroutine(Waiting(waitingTime));
     }
 
     private void OnPlayerInput(int playerID, int action)

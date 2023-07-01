@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     public List<AudioClip> backEffets;
     public List<AudioClip> actEffets;
     public List<AudioClip> footEffets;
+    public List<AudioClip> Music;
     public AudioSource backSound;
     public AudioSource footSound;
     public AudioSource propSound;
@@ -18,13 +19,26 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSound;
     public AudioMixer audioMixer;
 
+    public float musicOffset;
+    public float footOffset;
+
     public float waitTime;
+
+    private void Start()
+    {
+        audioMixer.SetFloat("BGMVolume", ConvertSoundVolume(musicSound.volume));
+        musicSound.clip = Music[1];
+        musicSound.Play();
+    }
 
     private void OnEnable()
     {
         EventHandler.startWaitingTimeEvent += OnWaitingTime;
         EventHandler.startActingTimeEvent += OnActingTime;
         EventHandler.actEvent += OnAct;
+        EventHandler.mangaBeginEvent += OnManga;
+        EventHandler.gameStartEvent += OnGameStart;
+        EventHandler.gameEndEvent += OnGameEnd;
     }
 
     private void OnDisable()
@@ -32,11 +46,31 @@ public class AudioManager : MonoBehaviour
         EventHandler.startWaitingTimeEvent -= OnWaitingTime;
         EventHandler.startActingTimeEvent -= OnActingTime;
         EventHandler.actEvent -= OnAct;
+        EventHandler.mangaBeginEvent -= OnManga;
+        EventHandler.gameStartEvent -= OnGameStart;
+        EventHandler.gameEndEvent -= OnGameEnd;
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
+    }
+
+    private void OnGameEnd()
+    {
+        audioMixer.SetFloat("BGMVolume", ConvertSoundVolume(musicSound.volume));
+        musicSound.clip = Music[0];
+        musicSound.Play();
+    }
+
+    private void OnManga()
+    {
+        audioMixer.SetFloat("BGMVolume", ConvertSoundVolume(musicSound.volume + musicOffset));
+    }
+
+    private void OnGameStart()
+    {
+        musicSound.Stop();
     }
 
     public void OnWaitingTime()
@@ -59,7 +93,7 @@ public class AudioManager : MonoBehaviour
 
         backSound.Stop();
 
-        audioMixer.SetFloat("FootVolume", ConvertSoundVolume(footSound.volume));
+        audioMixer.SetFloat("FootVolume", ConvertSoundVolume(footSound.volume + footOffset));
         footSound.clip = footEffets[0];
         footSound.Play();
     }

@@ -7,9 +7,9 @@ public class End : MonoBehaviour
 {
     public void Restart()
     {
-        SceneManager.LoadScene("SampleScene");
         //SceneManager.UnloadSceneAsync("PersistentScene");
-        SceneManager.LoadScene("PersistentScene", LoadSceneMode.Additive);
+        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("PersistentScene", LoadSceneMode.Additive);    
     }
 
     public void Quit()
