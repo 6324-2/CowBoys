@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -65,12 +66,13 @@ public class AudioManager : MonoBehaviour
 
     private void OnManga()
     {
-        audioMixer.SetFloat("BGMVolume", ConvertSoundVolume(musicSound.volume + musicOffset));
+        //audioMixer.SetFloat("BGMVolume", ConvertSoundVolume(musicSound.volume + musicOffset));
+        musicSound.Stop();
     }
 
     private void OnGameStart()
     {
-        musicSound.Stop();
+        //musicSound.Stop();
     }
 
     public void OnWaitingTime()

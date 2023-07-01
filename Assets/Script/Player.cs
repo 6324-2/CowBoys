@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        inputDisable = true;
         //scoreString.text = score.ToString();
     }
 
@@ -85,6 +86,7 @@ public class Player : MonoBehaviour
         {
             inputDisable = true;
             GameController.Instance.Reload();
+            EventHandler.CallGameStart();
             SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Additive);
         }
         else

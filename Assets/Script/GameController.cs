@@ -21,6 +21,7 @@ public class GameController : Singleton<GameController>
     public float actTime;
     public float reactTime;
     public float durationTime;
+    public float effectExitTime;
     public float timer;
     public float reactTimer;
     public float sinceShoot;
@@ -34,6 +35,8 @@ public class GameController : Singleton<GameController>
     public Image Man1;
     public Image Man2;
     public Image tumbleweed;
+    public List<Sprite> effectSources;
+    public List<Image> effects;
 
     protected override void Awake()
     {
@@ -48,6 +51,14 @@ public class GameController : Singleton<GameController>
         players[0].inputDisable = true;
         players[1].inputDisable = true;
         //isWaiting = true;
+
+        StartCoroutine(WaitUntilLoad());
+    }
+
+    private IEnumerator WaitUntilLoad()
+    {
+        yield return new WaitForSeconds(1.0f);
+        SceneManager.SetActiveScene(this.gameObject.scene);
     }
 
     private void OnPlayerJoined()
@@ -104,6 +115,7 @@ public class GameController : Singleton<GameController>
     {
         isGaming = true;
         //Time.timeScale = 1;
+        progressBar.fillAmount = 0;
         StartCoroutine(Waiting(waitingTime));
     }
 
@@ -112,6 +124,10 @@ public class GameController : Singleton<GameController>
         EventHandler.CallStartWaitingTime();
 
         isInput = false;
+        timingBar.fillAmount = 1.0f;
+        timingBar.color = Color.red;
+        Vector3 tempPos = tumbleweed.rectTransform.localPosition;
+        tumbleweed.rectTransform.localPosition = new Vector3(-1280, tempPos.y, tempPos.z);
 
         players[0].inputDisable = true;
         players[1].inputDisable = true;
@@ -119,6 +135,8 @@ public class GameController : Singleton<GameController>
         for (float i = time; i > 0.0f; i -= 0.1f)
         {
             timeString.text = i.ToString("0.0");
+            timingBar.fillAmount = i / time;
+            tumbleweed.rectTransform.localPosition = new Vector3(-1280 + 2760 * (time - i) / time, tempPos.y, tempPos.z);
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -130,8 +148,12 @@ public class GameController : Singleton<GameController>
         EventHandler.CallStartActingTime();
 
         currentStep++;
+        waitingTime++;
+        progressBar.fillAmount = (float)currentStep / 7;
         timer = 0;
         actions.Clear();
+        timingBar.fillAmount = 1.0f;
+        timingBar.color = Color.green;
 
         players[0].inputDisable = false;
         players[1].inputDisable = false;
@@ -146,6 +168,7 @@ public class GameController : Singleton<GameController>
             {
                 i = 0;
             }
+            timingBar.fillAmount = i / time;
             timeString.text = i.ToString("0.0");
             yield return new WaitForSeconds(0.1f);
         }
@@ -174,6 +197,10 @@ public class GameController : Singleton<GameController>
     {
         EventHandler.CallActEvent(action);
 
+        effects[playerID].gameObject.SetActive(true);
+        effects[playerID].sprite = effectSources[Random.Range(0, 5)];
+        StartCoroutine(WaitToFade(playerID));
+
         Debug.Log(playerID + " " + action);
         actions.Add((playerID, action));
         reactTimer = 0;
@@ -187,6 +214,13 @@ public class GameController : Singleton<GameController>
             players[playerID].inputDisable = true;
         }
     } 
+
+    private IEnumerator WaitToFade(int playerID)
+    {
+        yield return new WaitForSeconds(effectExitTime);
+
+        effects[playerID].gameObject.SetActive(false);
+    }
 
     public void Reload()
     {
