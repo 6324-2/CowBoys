@@ -187,6 +187,8 @@ public class GameController : Singleton<GameController>
             StopCoroutine(Acting(actTime));
 
             StartCoroutine(Focus());
+            actTime = 99999;
+            durationTime = actTime;
         }
     }
 
