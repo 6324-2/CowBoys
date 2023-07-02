@@ -92,7 +92,7 @@ public class AudioManager : MonoBehaviour
 
     private void OnGameStart()
     {
-        //musicSound.Stop();
+        audioMixer.SetFloat("BGMVolume", ConvertSoundVolume(musicSound.volume + musicOffset));
     }
 
     public void OnWaitingTime()

@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class End : MonoBehaviour
 {
     public GameObject endPanel;
+    private Player[] players = new Player[2];
+    private int player0Score;
+    private int player1Score;
 
     private void OnEnable()
     {
@@ -33,5 +36,10 @@ public class End : MonoBehaviour
     private void OnGameEndEvent()
     {
         endPanel.SetActive(true);
+        players[0] = GameObject.FindGameObjectWithTag("player0").GetComponent<Player>();
+        players[1] = GameObject.FindGameObjectWithTag("player1").GetComponent<Player>();
+
+        player0Score = players[0].score;
+        player1Score = players[1].score;
     }
 }
