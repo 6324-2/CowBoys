@@ -21,6 +21,7 @@ public class End : MonoBehaviour
     {
         //SceneManager.UnloadSceneAsync("PersistentScene");
         //SceneManager.LoadScene("SampleScene");
+        Eternal.Instance.time = 0.1f;
         SceneManager.LoadScene("PersistentScene");    
     }
 

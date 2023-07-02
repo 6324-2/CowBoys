@@ -58,4 +58,16 @@ public class EventHandler
     {
         manMoveEvent.Invoke(time);
     }
+
+    public static event Action UISoundEvent;
+    public static void CallUISoundEvent()
+    {
+        UISoundEvent.Invoke();
+    }
+
+    public static event Action textEvent;
+    public static void CallTextEvent()
+    {
+        textEvent.Invoke();
+    }
 }

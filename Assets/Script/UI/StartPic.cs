@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class StartPic : MonoBehaviour
 {
     public GameObject startPanel;
-    //public GameObject mangaPanel;
+    public GameObject mangaPanel;
 
     public void ClickStartButton()
     {
@@ -15,14 +15,20 @@ public class StartPic : MonoBehaviour
         //mangaPanel.SetActive(true);
         //EventHandler.CallMangaBeginEvent();
 
-        StartCoroutine(LoadScene());
+        //StartCoroutine(LoadScene());
 
-    }
-
-    private IEnumerator LoadScene()
-    {
-        yield return SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Additive);
+        mangaPanel.SetActive(true);
+        EventHandler.CallTextEvent();
         startPanel.SetActive(false);
-        EventHandler.CallGameStart();
     }
+
+    //private IEnumerator LoadScene()
+    //{
+    //    //yield return SceneManager.LoadSceneAsync("SampleScene", LoadSceneMode.Additive);
+
+    //    mangaPanel.SetActive(true);
+    //    EventHandler.CallTextEvent();
+    //    startPanel.SetActive(false);
+    //    //EventHandler.CallGameStart();
+    //}
 }

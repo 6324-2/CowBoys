@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
     public GameObject transitionalPanel;
     public GameObject gamePanel;
+    public Button continueButton;
     public List<Transform> tools;
     public List<Transform> targets;
 
@@ -31,16 +33,15 @@ public class Menu : MonoBehaviour
 
     public void StartGame()
     {
+        continueButton.interactable = false;
         StartCoroutine(SelectTools());
     }
 
     private IEnumerator SelectTools()
     {
-        
 
         yield return StartCoroutine(Move());
         EventHandler.CallMangaBeginEvent();
-
         
         yield return StartCoroutine(MangaMove());
 
@@ -49,6 +50,7 @@ public class Menu : MonoBehaviour
 
     private IEnumerator MangaMove()
     {
+        EventHandler.CallUISoundEvent();
         float timer = 0;
         while (timer < 2.5f)
         {
@@ -63,6 +65,7 @@ public class Menu : MonoBehaviour
         transitionalPanel.SetActive(false);
         gamePanel.SetActive(true);
 
+        EventHandler.CallUISoundEvent();
         timer = 0;
         while (timer < 2.5f)
         {

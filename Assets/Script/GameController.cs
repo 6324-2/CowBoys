@@ -153,7 +153,7 @@ public class GameController : Singleton<GameController>
         EventHandler.CallStartActingTime();
 
         currentStep++;
-        waitingTime++;
+        actTime++;
         progressBar.fillAmount = (float)currentStep / 7;
         timer = 0;
         actions.Clear();

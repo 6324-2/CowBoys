@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public List<AudioClip> actEffets;
     public List<AudioClip> footEffets;
     public List<AudioClip> Music;
+    public List<AudioClip> otherEffects;
     public AudioSource backSound;
     public AudioSource footSound;
     public AudioSource propSound;
@@ -40,6 +41,7 @@ public class AudioManager : MonoBehaviour
         EventHandler.mangaBeginEvent += OnManga;
         EventHandler.gameStartEvent += OnGameStart;
         EventHandler.gameEndEvent += OnGameEnd;
+        EventHandler.UISoundEvent += OnUIPlay;
     }
 
     private void OnDisable()
@@ -50,6 +52,7 @@ public class AudioManager : MonoBehaviour
         EventHandler.mangaBeginEvent -= OnManga;
         EventHandler.gameStartEvent -= OnGameStart;
         EventHandler.gameEndEvent -= OnGameEnd;
+        EventHandler.UISoundEvent -= OnUIPlay;
     }
 
     private void Update()
@@ -68,6 +71,13 @@ public class AudioManager : MonoBehaviour
     {
         //audioMixer.SetFloat("BGMVolume", ConvertSoundVolume(musicSound.volume + musicOffset));
         StartCoroutine(SoundFade());
+    }
+
+    private void OnUIPlay()
+    {
+        audioMixer.SetFloat("OtherVolume", ConvertSoundVolume(musicSound.volume));
+        otherSound.clip = otherEffects[0];
+        otherSound.Play();
     }
 
     private IEnumerator SoundFade()

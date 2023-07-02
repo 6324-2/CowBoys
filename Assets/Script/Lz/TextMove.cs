@@ -22,15 +22,15 @@ public class TextMove : MonoBehaviour
         // 向上滚动文本
         textRectTransform.anchoredPosition += Vector2.up * scrollSpeed * Time.deltaTime;
         
-        // 如果文本滚动到顶部，切换到下一个场景
-        if (textRectTransform.anchoredPosition.y >= canvas.pixelRect.height)
-        {
-            LoadNextScene();
-        }
+        //// 如果文本滚动到顶部，切换到下一个场景
+        //if (textRectTransform.anchoredPosition.y >= canvas.pixelRect.height)
+        //{
+        //    LoadNextScene();
+        //}
     }
     
-    private void LoadNextScene()
-    {
-        SceneManager.LoadScene(nextSceneName);
-    }
+    //private void LoadNextScene()
+    //{
+    //    SceneManager.LoadScene(nextSceneName);
+    //}
 }
