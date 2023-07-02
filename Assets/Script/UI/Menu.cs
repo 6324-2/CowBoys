@@ -112,7 +112,7 @@ public class Menu : MonoBehaviour
 
         for(int i = 0; i < original.Count; i++)
         {
-            Debug.Log(original[i].position);
+            //Debug.Log(original[i].position);
             if(original[i].position.x < 500)
             {
                 GameController.Instance.toolDic[0].Add(i);

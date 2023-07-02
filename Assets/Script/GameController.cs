@@ -36,6 +36,8 @@ public class GameController : Singleton<GameController>
     public Image Man0;
     public Image Man1;
     public Image tumbleweed;
+    public Sprite onShoot;
+    public Sprite idle;
     public List<Sprite> effectSources;
     public List<Image> effects;
     public List<Transform> man0Pos;
@@ -236,11 +238,21 @@ public class GameController : Singleton<GameController>
 
         if (action == 1)
         {
+            if(playerID == 0)
+            {
+                Man0.sprite = onShoot;
+            }
             isShot = true;
             sinceShoot = 0;
             players[playerID].inputDisable = true;
         }
     } 
+
+    private IEnumerator WaitAnim()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Man0.sprite = idle;
+    }
 
     private IEnumerator WaitToFade(int playerID)
     {
