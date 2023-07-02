@@ -154,6 +154,7 @@ public class GameController : Singleton<GameController>
 
         currentStep++;
         actTime++;
+        durationTime++;
         progressBar.fillAmount = (float)currentStep / 7;
         timer = 0;
         actions.Clear();
