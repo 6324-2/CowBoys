@@ -2205,6 +2205,8 @@ MonoBehaviour:
   Man0: {fileID: 1312392310}
   Man1: {fileID: 2005587648}
   tumbleweed: {fileID: 1800919353}
+  onShoot: {fileID: 21300000, guid: 84bd777bfef32604790252b30cd94c1e, type: 3}
+  idle: {fileID: 21300000, guid: 5195a9bb6151429489a095bca44067f4, type: 3}
   effectSources:
   - {fileID: 21300000, guid: e13e43a811571574ab8eab111001dd52, type: 3}
   - {fileID: 21300000, guid: 31d2babbfd0b9c74a82cb7c013074200, type: 3}
