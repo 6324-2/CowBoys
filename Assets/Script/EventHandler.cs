@@ -52,4 +52,10 @@ public class EventHandler
     {
         gameEndEvent.Invoke();
     }
+
+    public static event Action<float> manMoveEvent;
+    public static void CallManMoveEvent(float time)
+    {
+        manMoveEvent.Invoke(time);
+    }
 }

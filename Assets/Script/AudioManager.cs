@@ -108,6 +108,7 @@ public class AudioManager : MonoBehaviour
         audioMixer.SetFloat("FootVolume", ConvertSoundVolume(footSound.volume + footOffset));
         footSound.clip = footEffets[0];
         footSound.Play();
+        EventHandler.CallManMoveEvent(GameController.Instance.waitingTime - time);
     }
 
     public void OnActingTime()
@@ -138,6 +139,7 @@ public class AudioManager : MonoBehaviour
         else if(action == 2)
         {
             List<int> temps = GameController.Instance.toolDic[playerID];
+            Debug.Log(temps.Count);
             propSound.clip = actEffets[temps[0] + 1];
             temps.Remove(0);
             propSound.Play();

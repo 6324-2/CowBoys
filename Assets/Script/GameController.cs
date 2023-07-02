@@ -33,11 +33,13 @@ public class GameController : Singleton<GameController>
     public GameObject focusPanel;
     public Image progressBar;
     public Image timingBar;
+    public Image Man0;
     public Image Man1;
-    public Image Man2;
     public Image tumbleweed;
     public List<Sprite> effectSources;
     public List<Image> effects;
+    public List<Transform> man0Pos;
+    public List<Transform> man1Pos;
 
     protected override void Awake()
     {
@@ -74,12 +76,14 @@ public class GameController : Singleton<GameController>
     {
         EventHandler.playerInputEvent += OnPlayerInput;
         EventHandler.playerJoinedEvent += OnPlayerJoined;
+        EventHandler.manMoveEvent += OnManMove;
     }
 
     private void OnDisable()
     {
         EventHandler.playerInputEvent -= OnPlayerInput;
         EventHandler.playerJoinedEvent -= OnPlayerJoined;
+        EventHandler.manMoveEvent -= OnManMove;
     }
 
     private void Update()
@@ -192,6 +196,25 @@ public class GameController : Singleton<GameController>
         yield return new WaitForSeconds(2.0f);
 
         StartCoroutine(Waiting(waitingTime));
+    }
+
+    private void OnManMove(float time)
+    {
+        StartCoroutine(ManMove(time));
+    }
+
+    private IEnumerator ManMove(float time)
+    {
+        float timer = 0;
+        while(timer < time)
+        {
+            timer += Time.deltaTime;
+            Man0.transform.localPosition += (man0Pos[currentStep].localPosition - Man0.transform.localPosition) / time * Time.deltaTime;
+            Man1.transform.localPosition += (man1Pos[currentStep].localPosition - Man1.transform.localPosition) / time * Time.deltaTime;
+            Man0.transform.localScale += (man0Pos[currentStep].localScale - Man0.transform.localScale) / time * Time.deltaTime;
+            Man1.transform.localScale += (man1Pos[currentStep].localScale - Man1.transform.localScale) / time * Time.deltaTime;
+            yield return null;
+        }
     }
 
     private void OnPlayerInput(int playerID, int action)
